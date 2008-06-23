@@ -1,0 +1,41 @@
+vlib work -- create work library fo the simulation
+
+vmap work work -- this map the new work library, the second work is the path
+to the library, could be vsim/work or something like this.
+
+vcom -quiet -93 -work work my_vhdl_file_to_compile.vhd
+
+-----
+vlib <lib_path>	-- create library
+vmap	-- list all mapped librarys
+vmap <logical_name> <lib_path>	-- map logical library to real one
+vmap -del <logical_name>	-- delete logical mapping
+vcom -93 -check_synthesis -force_refresh -work <lib_name> <vhdl_files> --if you specifiy more than one file, you must start with the lowest file
+in the hierarchie. You should comile the design vhdl source files and the
+testbench vhdl file.
+vsim <library_name>.<design_unit>  --start vsim and specify the TOP-Level
+
+<lib_path>=modelsim/work
+<logical_name>=work
+<lib_name>= could be logical name "work" or unix path "modelsim/work"
+<vhdl_files>=src/abc.vhd 
+<library_name>=work.dff_tb
+
+----
+vsim -c work.dff_tb -do first.do
+
+--tlc1 is ok?, tlc2 is ok but green is 3ms longer, tlc3 is absolutely ok but
+should be corrected in order to synthesize,
+
+-----
+CPU
+-----
+extend modelsim.ini with 
+simprim = $XILINX/modelsim-6.3d/simprim
+unisim = $XILINX/modelsim-6.3d/unisim
+xilinxcorelib = $XILINX/modelsim-6.3d/XilinxCoreLib
+
+in the original modelsim.ini on bridge were:
+simprim = $XILINX/modelsim-5.4c-32/simprim
+unisim = $XILINX/modelsim-5.4c-32/unisim
+xilinxcorelib = $XILINX/modelsim-5.4c-32/xilinxcorelib
