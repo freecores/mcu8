@@ -21,8 +21,9 @@ BEGIN
     ELSIF clk'EVENT AND clk='1' THEN
       CASE control IS
 --        WHEN  nop | neg_s | and_s | exor_s | or_s | sra_s | ror_s | add_s | addc_s | sta_1 => pc_int := pc_int + 1;
-        WHEN jmp_1 | jmpc_1 | jmpz_1 => pc_int := addr_in;
-        WHEN lda_addr_1 | ldb_addr_1 => null;                                        
+        WHEN jmp_2 | jmpc_2 | jmpz_2 => pc_int := addr_in;
+--        WHEN lda_addr_2 | ldb_addr_2 => null;                                        
+        WHEN jnt => pc_int := std_logic_vector(unsigned(unsigned(pc_int) + to_unsigned(2,d_bus_width))); -- jump not taken
         WHEN OTHERS => pc_int := std_logic_vector(unsigned(unsigned(pc_int) + to_unsigned(1,d_bus_width))); 
       END CASE;
     END IF;

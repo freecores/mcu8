@@ -51,7 +51,7 @@ ARCHITECTURE testbench OF processor_tb IS
   END COMPONENT;
   
 for all: cpu USE ENTITY work.processor_E(rtl_A);
---for all: cpu use entity work.processor_E(structure); --backannotation
+--for all: cpu use entity work.processor_E(structure); --vasco's cpu processor.model.vhdl
 
 BEGIN
 

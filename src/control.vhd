@@ -7,7 +7,7 @@ entity control is
   port( clk, rst : in std_logic;
         carry, zero : IN std_logic;
         input : IN d_bus;
-        output : OUT opcode );
+        output, output_nxt : OUT opcode );
 end control;
 
 
@@ -15,8 +15,8 @@ architecture behavioral of control is
   signal pr_state, nxt_state : opcode;
 begin
 
-  output <= pr_state;
---  output <= nxt_state;
+ output <= pr_state;
+ output_nxt <= nxt_state;
   
 main_s_p: process(clk)
   begin
@@ -34,7 +34,7 @@ main_c_p: process(pr_state,input, carry, zero)
 begin
 
   case pr_state is
-    WHEN nop | neg_s | and_s | exor_s | or_s | sra_s | ror_s | add_s | addc_s | jmp_2 | jmpc_2 | jmpz_2 | lda_const_2 | ldb_const_2 | lda_addr_3 | ldb_addr_3 | sta_2 => 
+    WHEN nop | jnt | neg_s | and_s | exor_s | or_s | sra_s | ror_s | add_s | addc_s | jmp_2 | jmpc_2 | jmpz_2 | lda_const_2 | ldb_const_2 | lda_addr_2 | ldb_addr_2 | sta_2 => 
       CASE input(input'HIGH DOWNTO 5) IS
         WHEN "000" => nxt_state <= nop;
         WHEN "001" =>
@@ -59,12 +59,12 @@ begin
             WHEN "0010" => IF carry='1' THEN
                              nxt_state <= jmpc_1;
                            ELSE
-                             nxt_state <= nop;
+                             nxt_state <= jnt;
                            END IF;
             WHEN "0001" => IF zero='1' THEN
                              nxt_state <= jmpz_1;
                            ELSE
-                             nxt_state <= nop;
+                             nxt_state <= jnt;
                            END IF;
             WHEN OTHERS => nxt_state <= nop;
           END case;
@@ -89,9 +89,7 @@ begin
     WHEN lda_const_1 => nxt_state <= lda_const_2;
     WHEN ldb_const_1 => nxt_state <= ldb_const_2;
     WHEN lda_addr_1 => nxt_state <= lda_addr_2;                        
-    WHEN lda_addr_2 => nxt_state <= lda_addr_3;
     WHEN ldb_addr_1 => nxt_state <= ldb_addr_2;                       
-    WHEN ldb_addr_2 => nxt_state <= ldb_addr_3;
     WHEN sta_1 => nxt_state <= sta_2;                  
     WHEN OTHERS => nxt_state <= nop;                       
   END case;

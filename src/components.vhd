@@ -10,7 +10,7 @@ package components is
   
   component control is
     port( clk,rst,carry,zero : in std_logic; input : IN d_bus;
-          output : out opcode );
+          output,output_nxt : out opcode );
   end component;
   
   component pc is

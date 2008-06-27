@@ -83,7 +83,7 @@ begin
                    ELSE
                      zero_out <= '0';
                    END IF;                  
-    WHEN nop | jmp_1 | jmp_2 | jmpc_1 | jmpc_2 | jmpz_1 | jmpz_2 | lda_const_1 | ldb_const_1 | lda_addr_1 | ldb_addr_1 |sta_1 | sta_2 =>
+    WHEN nop | jnt | jmp_1 | jmp_2 | jmpc_1 | jmpc_2 | jmpz_1 | jmpz_2 | lda_const_1 | ldb_const_1 | sta_1 | sta_2 =>
       result_int := a;
       carry_out <= carry;
       zero_out <= zero;
@@ -94,14 +94,14 @@ begin
                          ELSE
                            zero_out <= '0';
                          END IF;                  
-    WHEN lda_addr_2 | ldb_addr_2 => result_int := rom_data;
+    WHEN lda_addr_1 | ldb_addr_1 => result_int := rom_data;
                          carry_out <= carry;
                          IF result_int=ZERO_BUS THEN
                            zero_out <= '1';
                          ELSE
                            zero_out <= '0';
                          END IF;
-    WHEN lda_addr_3 | ldb_addr_3 => result_int := ram_data;
+    WHEN lda_addr_2 | ldb_addr_2 => result_int := ram_data;
                          carry_out <= carry;
                          IF result_int=ZERO_BUS THEN
                            zero_out <= '1';

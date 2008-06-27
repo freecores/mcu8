@@ -33,10 +33,10 @@ reg_p: process(clk,rst)
           zero_out <= zero_in;
           a_out <= result_in;
           carry_out <= carry_in;
-        WHEN lda_const_2 | lda_addr_3 => zero_out <= zero_in;
+        WHEN lda_const_2 | lda_addr_2 => zero_out <= zero_in;
                                          a_out <= result_in;
                                          carry_out <= carry_in;
-        WHEN ldb_const_2 | ldb_addr_3 => zero_out <= zero_in;
+        WHEN ldb_const_2 | ldb_addr_2 => zero_out <= zero_in;
                                          b_out <= result_in;
                                          carry_out <= carry_in;
         WHEN OTHERS => NULL;

@@ -47,19 +47,17 @@ end process;
 
 rd_p: process(clk)
 BEGIN
-  IF clk'EVENT AND clk='1' THEN
-    IF control=lda_addr_1 OR control=ldb_addr_1 then
-      ce_nrd <= '0';
-    ELSE
-      ce_nrd <= '1';
-    END IF;
-  END IF;
+  IF control=lda_addr_1 OR control=ldb_addr_1 then
+    ce_nrd <= clk;
+  else
+    ce_nrd <= '1';
+  end if;
 END process;
 
 ram_data: process(clk)
 begin
   if clk'event and clk='1' then
-    if control=lda_addr_2 or control=ldb_addr_2 then
+    if control=lda_addr_1 or control=ldb_addr_1 then
       ram_data_reg <= input_ram;
     end if;
   end if;

@@ -13,8 +13,8 @@ PACKAGE cpu_types IS
   type rom_memory is array (integer range 0 to 2**a_bus_width-1) of d_bus;
   type opcode is (nop, neg_s, and_s, exor_s, or_s, sra_s, ror_s, add_s, addc_s,
                   jmp_1, jmpc_1, jmpz_1, jmp_2, jmpc_2, jmpz_2, lda_const_1, lda_const_2,
-                  ldb_const_1, ldb_const_2, lda_addr_1, lda_addr_2, lda_addr_3,
-                  ldb_addr_1, ldb_addr_2, ldb_addr_3, sta_1, sta_2 );
+                  ldb_const_1, ldb_const_2, lda_addr_1, lda_addr_2,
+                  ldb_addr_1, ldb_addr_2, sta_1, sta_2, jnt );
 
   PROCEDURE addc (SIGNAL a, b : IN STD_LOGIC_VECTOR(d_bus_width-1 DOWNTO 0);
                   SIGNAL cin : IN STD_LOGIC;
