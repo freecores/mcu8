@@ -4,9 +4,9 @@
 #	Don't forget to execute "source bin/load_modules" manual from the shell		     #
 ##############################################################################################
 
-TOP=processor#change to the name of the TOP-Entity
+TOP=processor_E#change to the name of the TOP-Entity
 DEVICE=xc3s4000-fg676-4#change to the device id found on the chip
-#VHDLSYNFILES=src/processor_E.vhd src/processor.model.vhd src/cpu_types.vhd src/ram.vhd src/rom.vhd #list all vhdl files in the project that have to be synthesized
+#VHDLSYNFILES=src/cpu_types.vhd src/components.vhd src/processor_E.vhd src/processor.model.vhd src/cpu_types.vhd src/ram.vhd src/rom.vhd #list all vhdl files in the project that have to be synthesized
 VHDLSYNFILES=src/cpu_types.vhd src/alu.vhd src/control.vhd src/pc.vhd src/ram_control.vhd src/reg.vhd src/components.vhd src/processor_E.vhd src/ram.vhd src/rom.vhd
 
 OPTMODE=Speed
