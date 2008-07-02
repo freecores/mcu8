@@ -13,12 +13,13 @@ end pc;
 
 architecture behavioral of pc is
 begin
-pc_p: process(clk,rst)
-  VARIABLE pc_int : d_bus := zero_bus;
-BEGIN
-    IF rst='1' THEN
+pc_p: process(clk)
+  VARIABLE pc_int : d_bus;
+BEGIN	
+  IF clk'EVENT AND clk='1' THEN
+    if rst='1' then
       pc_int := zero_bus;
-    ELSIF clk'EVENT AND clk='1' THEN
+    else
       CASE control IS
 --        WHEN  nop | neg_s | and_s | exor_s | or_s | sra_s | ror_s | add_s | addc_s | sta_1 => pc_int := pc_int + 1;
         WHEN jmp_2 | jmpc_2 | jmpz_2 => pc_int := addr_in;
@@ -27,7 +28,8 @@ BEGIN
         WHEN OTHERS => pc_int := std_logic_vector(unsigned(unsigned(pc_int) + to_unsigned(1,d_bus_width))); 
       END CASE;
     END IF;
-    pc <= pc_int;
+  end if;
+  pc <= pc_int;
 END process;    
 end behavioral;
                                                                                                                                       

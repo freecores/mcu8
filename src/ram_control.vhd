@@ -45,7 +45,7 @@ end process;
 --end process;
 
 
-rd_p: process(clk)
+rd_p: process(clk,control)
 BEGIN
   IF control=lda_addr_1 OR control=ldb_addr_1 then
     ce_nrd <= clk;

@@ -29,6 +29,10 @@ ARCHITECTURE rtl_A OF processor_E IS
   SIGNAL control_int, control_nxt_int : opcode;
 BEGIN
   rst_int <= (NOT nreset) OR (NOT nreset_int);
+  a <= a_reg_alu;
+  b <= b_reg_alu;
+  cflag <= carry_reg_alu;
+  zflag <= zero_reg_alu;
 
 alu_i: alu
   port map(
@@ -50,6 +54,7 @@ reg_i: reg
     carry_in => carry_alu_reg,
     zero_in => zero_alu_reg,
     result_in => result_alu_reg,
+    rom_data_in => prog_data,
     control => control_int,
     a_out => a_reg_alu,
     b_out => b_reg_alu,

@@ -24,7 +24,6 @@ alu_p:	process(control,a,b,rom_data,ram_data,carry,zero)
 begin
   a_add_int := '0' & a;
   b_add_int := '0' & b;
-  result <= result_int;
   
   case control is
     when neg_s => result_int := NOT a;
@@ -112,6 +111,7 @@ begin
                    carry_out <= carry;
                    zero_out <= zero;
   end case;            
+  result <= result_int;
 end process;
 end behavioral;
                                                                                                                                       

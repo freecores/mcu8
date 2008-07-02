@@ -24,7 +24,7 @@ package components is
   end component;  
 
   COMPONENT reg is
-    port( clk,rst,carry_in,zero_in : IN std_logic; result_in : IN d_bus; control : IN opcode;
+    port( clk,rst,carry_in,zero_in : IN std_logic; result_in,rom_data_in : IN d_bus; control : IN opcode;
           a_out,b_out : OUT d_bus; carry_out,zero_out : OUT STD_LOGIC );
   END COMPONENT;
 end components;
