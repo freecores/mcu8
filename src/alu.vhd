@@ -17,7 +17,7 @@ end alu;
 architecture behavioral of alu is
 begin
 alu_p:	process(control,a,b,rom_data,ram_data,carry,zero)
-  VARIABLE result_int : d_bus := (OTHERS => 'X');
+  VARIABLE result_int : d_bus;
   VARIABLE add_result_int : STD_LOGIC_VECTOR(d_bus_width DOWNTO 0);  -- 9 bit
 -- vector for add operation
   VARIABLE a_add_int, b_add_int : STD_LOGIC_VECTOR(d_bus_width DOWNTO 0);

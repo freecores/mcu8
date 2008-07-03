@@ -50,8 +50,8 @@ ARCHITECTURE testbench OF processor_E_tb IS
           data : out d_bus );
   END COMPONENT;
   
---for all: cpu USE ENTITY work.processor_E(rtl_A);
-for all: cpu use entity work.processor_E(structure); --reference cpu (processor.model.vhdl) or my backannotated design (processor_E_backan.vhd)
+--for all: cpu USE ENTITY work.processor_E(rtl_A); --use for pre-synthesis simulation
+for all: cpu use entity work.processor_E(structure); --use for backannotated simulation
 
 BEGIN
 

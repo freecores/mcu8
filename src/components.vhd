@@ -9,7 +9,7 @@ package components is
   end component;
   
   component control is
-    port( clk,rst,carry,zero : in std_logic; input : IN d_bus;
+    port( clk,rst,carry,carry_new,zero,zero_new : in std_logic; input : IN d_bus;
           output,output_nxt : out opcode );
   end component;
   

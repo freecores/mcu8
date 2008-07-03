@@ -5,7 +5,7 @@ use work.cpu_types.all;
 
 entity control is
   port( clk, rst : in std_logic;
-        carry, zero : IN std_logic;
+        carry, carry_new, zero, zero_new : IN std_logic;
         input : IN d_bus;
         output, output_nxt : OUT opcode );
 end control;
@@ -30,7 +30,7 @@ main_s_p: process(clk)
   end process;
 
 
-main_c_p: process(pr_state,input, carry, zero)
+main_c_p: process(pr_state,input,carry,carry_new,zero,zero_new)
 begin
 
   case pr_state is
@@ -56,12 +56,12 @@ begin
         WHEN "011" =>
           case input(3 DOWNTO 0) is
             WHEN "0011" => nxt_state <= jmp_1;
-            WHEN "0010" => IF carry='1' THEN
+            WHEN "0010" => IF carry='1' or carry_new='1' THEN
                              nxt_state <= jmpc_1;
                            ELSE
                              nxt_state <= jnt;
                            END IF;
-            WHEN "0001" => IF zero='1' THEN
+            WHEN "0001" => IF zero='1' or zero_new='1' THEN
                              nxt_state <= jmpz_1;
                            ELSE
                              nxt_state <= jnt;

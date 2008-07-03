@@ -5,7 +5,8 @@ PACKAGE cpu_types IS
   CONSTANT a_bus_width : INTEGER := 8;
   CONSTANT d_bus_width : INTEGER := 8;
   CONSTANT zero_bus : std_logic_vector(d_bus_width-1 downto 0) := (others =>'0');
-
+--  constant notinit :  std_logic_vector(d_bus_width-1 downto 0) := (others =>'U');
+    
   SUBTYPE a_bus IS STD_LOGIC_VECTOR(a_bus_width-1 DOWNTO 0);
   SUBTYPE d_bus IS STD_LOGIC_VECTOR(d_bus_width-1 DOWNTO 0);
 

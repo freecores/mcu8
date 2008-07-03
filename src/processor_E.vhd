@@ -66,7 +66,9 @@ control_i: control
     clk    => clk,
     rst    => rst_int,
     carry  => carry_reg_alu,
+    carry_new => carry_alu_reg,
     zero   => zero_reg_alu,
+    zero_new => zero_alu_reg,
     input  => prog_data,
     output => control_int,
     output_nxt => control_nxt_int );

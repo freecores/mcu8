@@ -16,6 +16,7 @@ END ram;
 ARCHITECTURE behavioral OF ram IS
   SIGNAL memory : ram_memory;
 BEGIN
+
 ram_rd: process(addr, ce_nrd, memory)
   begin
     data_out <= (OTHERS => 'X');
@@ -29,6 +30,7 @@ ram_wr: process(addr, data_in, ce_nwr)
   begin
     IF ce_nwr='0' THEN
       memory(to_integer(unsigned(addr))) <= data_in;
+--  memory(251) <= zero_bus;  --debug
     END if;
   END process;
 
