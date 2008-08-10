@@ -5,9 +5,12 @@
 ##############################################################################################
 
 TOP=processor_E#change to the name of the TOP-Entity
-DEVICE=xc3s4000-fg676-4#change to the device id found on the chip
-#VHDLSYNFILES=src/cpu_types.vhd src/components.vhd src/processor_E.vhd src/processor.model.vhd src/cpu_types.vhd src/ram.vhd src/rom.vhd #list all vhdl files in the project that have to be synthesized
-VHDLSYNFILES=src/cpu_types.vhd src/alu.vhd src/control.vhd src/pc.vhd src/ram_control.vhd src/reg.vhd src/components.vhd src/processor_E.vhd src/ram.vhd src/rom.vhd
+DEVICE=3s50tq144-4
+#DEVICE=xc3s4000-fg676-4#change to the device id found on the chip
+#VHDLSYNFILES=src/cpu_types.vhd src/components.vhd src/processor_E.vhd src/processor.model.vhd src/ram.vhd src/rom.vhd #reference model for simulation
+#VHDLSYNFILES=src/cpu_types.vhd src/components.vhd src/processor_E.vhd src/processor_E_backan.vhd src/ram.vhd src/rom.vhd#backannotated simulation after synthesis with Precision
+#VHDLSYNFILES=src/cpu_types.vhd src/components.vhd src/processor_E.vhd src/processor_E_backannotated.vhd src/ram.vhd src/rom.vhd#backannotated simulation after synthesis with XST
+VHDLSYNFILES=src/cpu_types.vhd src/alu.vhd src/control.vhd src/pc.vhd src/ram_control.vhd src/reg.vhd src/components.vhd src/processor_E.vhd src/ram.vhd src/rom.vhd #synthesis and pre-synthesis simulation
 
 OPTMODE=Speed
 OPTLEVEL=1
@@ -91,8 +94,18 @@ use-vsim-gui: $(ALLFILES)
 	@vcom -93 -work work src/$(TOPSIM).vhd
 	@mv -f src/*.do $(DOFILE)TMP
 	@mv -f $(DOFILE)TMP $(DOFILE)
-#	vsim -gui work.$(TOPSIM) -do $(DOFILE) &
 	vsim -gui work.$(TOPSIM) -do it &
+#	vsim -sdftyp /processor_e_tb/u_cpu=src/processor_E_backan.sdf -gui work.$(TOPSIM) -do it & 
+
+use-vsim-cov: $(ALLFILES)
+	vmap -del work
+	rm -rf modelsim
+	mkdir modelsim
+	vlib modelsim/work
+	vmap work modelsim/work
+	vcom -cover bcst -f coverage.file
+	vsim -coverage -gui work.$(TOPSIM)
+# load the rtl_a architecture in the tb file 
 
 clear:
 	@rm -f $(TOP).ngr $(TOP).msd $(TOP).msk $(TOP).rbt $(TOP).twr $(TOP).xpi $(TOP)_pad.csv $(TOP)_pad.txt $(TOP).bld
@@ -131,7 +144,7 @@ vsim-help:
 warnings-xst:
 	@grep -n -i warning *.log
 	@grep -n -i info *.log
-	
+
 warnings-implement:
 	@grep -n -i warning *.par *.twr
 	@grep -n -i info *.par *.twr
