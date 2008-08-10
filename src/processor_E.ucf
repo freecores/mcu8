@@ -1,3 +1,5 @@
+NET "clk" TNM_NET = "xmplr_clk";
+TIMESPEC "TS_clk_ClockDomain0" = PERIOD "xmplr_clk" 1000.000000 ns HIGH 50.000000 %;
 #NET "prog_adr<0>" LOC = "P83" | IOSTANDARD = LVCMOS33; 
 #NET "prog_adr<1>" LOC = "P84" | IOSTANDARD = LVCMOS33;
 #NET "prog_adr<2>" LOC = "P85" | IOSTANDARD = LVCMOS33;

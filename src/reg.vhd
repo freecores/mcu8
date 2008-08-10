@@ -53,18 +53,16 @@ reg_p: process(clk)
           WHEN lda_const_2 => zero_out <= zero_in;
                               a_out <= rom_data_intern;
                               carry_out <= carry_in;
- 
+          when lda_const_1 => zero_out <= zero_in;
           WHEN ldb_const_2 => zero_out <= zero_in;
                               b_out <= rom_data_intern;
                               carry_out <= carry_in;
-          WHEN lda_addr_2 => zero_out <= zero_in;
-                             a_out <= result_in;
-                             carry_out <= carry_in;
- 
-          WHEN ldb_addr_2 => zero_out <= zero_in;
-                             b_out <= result_in;
-                             carry_out <= carry_in;
- 
+          WHEN lda_addr_2 =>  zero_out <= zero_in;
+                              a_out <= result_in;
+                              carry_out <= carry_in;
+          WHEN ldb_addr_2 =>  zero_out <= zero_in;
+                              b_out <= result_in;
+                              carry_out <= carry_in;
           WHEN OTHERS => NULL;
         END CASE;
       END if;

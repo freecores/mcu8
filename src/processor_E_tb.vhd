@@ -50,8 +50,8 @@ ARCHITECTURE testbench OF processor_E_tb IS
           data : out d_bus );
   END COMPONENT;
   
---for all: cpu USE ENTITY work.processor_E(rtl_A); --use for pre-synthesis simulation
-for all: cpu use entity work.processor_E(structure); --use for backannotated simulation
+for all: cpu USE ENTITY work.processor_E(rtl_A); --use for pre-synthesis simulation and for coverage simulation
+--for all: cpu use entity work.processor_E(structure); --use for backannotated simulation
 
 BEGIN
 

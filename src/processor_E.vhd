@@ -24,7 +24,7 @@ END processor_E;
 
 
 ARCHITECTURE rtl_A OF processor_E IS
-  SIGNAL carry_reg_alu,zero_reg_alu,rst_int,carry_alu_reg,zero_alu_reg : STD_LOGIC; -- H-activ internal reset SIGNAL
+  SIGNAL carry_reg_alu,zero_reg_alu,rst_int,carry_alu_reg,zero_alu_reg,flagz_alu_control,flagc_alu_control : STD_LOGIC; -- H-activ internal reset SIGNAL
   signal ram_data_reg,a_reg_alu,b_reg_alu,result_alu_reg : d_bus;
   SIGNAL control_int, control_nxt_int : opcode;
 BEGIN
@@ -45,7 +45,9 @@ alu_i: alu
     zero => zero_reg_alu,
     result => result_alu_reg,
     carry_out => carry_alu_reg,
-    zero_out => zero_alu_reg );
+    zero_out => zero_alu_reg,
+    flagc => flagc_alu_control,
+    flagz => flagz_alu_control );
 
 reg_i: reg
   port MAP(
@@ -71,7 +73,9 @@ control_i: control
     zero_new => zero_alu_reg,
     input  => prog_data,
     output => control_int,
-    output_nxt => control_nxt_int );
+    output_nxt => control_nxt_int,
+    flagz => flagz_alu_control,
+    flagc => flagc_alu_control );
   
 pc_i: pc
   PORT MAP (

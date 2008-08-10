@@ -5,12 +5,12 @@ use work.cpu_types.all;
 package components is
   component alu is
     port( a,b,rom_data,ram_data : in d_bus; control : in opcode; carry,zero : in std_logic;
-          result : OUT d_bus; carry_out,zero_out : OUT STD_LOGIC );
+          result : OUT d_bus; carry_out,zero_out,flagz,flagc : OUT STD_LOGIC );
   end component;
   
   component control is
     port( clk,rst,carry,carry_new,zero,zero_new : in std_logic; input : IN d_bus;
-          output,output_nxt : out opcode );
+          output,output_nxt : out opcode; flagc,flagz : in std_logic );
   end component;
   
   component pc is

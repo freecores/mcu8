@@ -20,14 +20,11 @@ rom_read: process(addr, memory)
   END process;
 
 rom_init: process
-    FILE src_file : TEXT IS IN "asm.o";
+    FILE src_file : TEXT IS IN "fulltest.o";
     VARIABLE src_line : LINE;
     VARIABLE data : INTEGER RANGE 0 TO 2**d_bus_width-1;
     VARIABLE index : INTEGER RANGE 0 TO 2**a_bus_width-1 := 0;
   BEGIN
---    for i in 0 to 255 loop
---    memory(i) <= notinit;
---    end loop;
     WHILE NOT endfile(src_file) LOOP
       readline(src_file, src_line);
       read(src_line, data);
